@@ -4,7 +4,7 @@
   "description": "Node with express using typescript",
   "main": "./dist/index.js",
   "scripts": {
-    "post-install": "mkdir ./logs",
+    "post-install": "mkdir -p ./logs",
     "compile": "tsc",
     "start": "tsc && node ./dist",
     "watch": "nodemon",
