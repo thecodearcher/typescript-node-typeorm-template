@@ -1,13 +1,13 @@
-import { ENVIRONMENT } from "../config";
+import { ENVIRONMENT } from '../config';
 
-import { logger } from "../utils/logger";
+import { logger } from '../utils/logger';
 
 export default (err, req, res, next) => {
     if (!err.isOperational) {
-        if (ENVIRONMENT !== "development") {
+        if (ENVIRONMENT !== 'development') {
             logger.error(
-                "An unexpected error occurred please restart the application!",
-                "\nError: " + err.message + " Stack: " + err.stack,
+                'An unexpected error occurred please restart the application!',
+                '\nError: ' + err.message + ' Stack: ' + err.stack,
             );
             process.exit(1);
         }
@@ -17,7 +17,7 @@ export default (err, req, res, next) => {
         req.ip
         } - Stack: ${err.stack}`,
     );
-    err.stack = err.stack || "";
+    err.stack = err.stack || '';
     const errorDetails = {
         status: false,
         message: err.message,
@@ -25,7 +25,7 @@ export default (err, req, res, next) => {
         data: err.data,
         stack: err.stack,
     };
-    if (ENVIRONMENT === "production") {
+    if (ENVIRONMENT === 'production') {
         delete (errorDetails.stack);
     }
 

@@ -1,5 +1,6 @@
-import Joi from "@hapi/joi";
-import _ from "lodash";
+import Joi from '@hapi/joi';
+import _ from 'lodash';
+import { HttpStatusCode } from '../enums';
 
 /**
  *  Validates incoming input in the body of a request.
@@ -12,7 +13,7 @@ import _ from "lodash";
 export const validation = (schema: Joi.ObjectSchema, options?: Joi.ValidationOptions) => {
 
     // enabled HTTP methods for request data validation
-    const _supportedMethods = ["post", "put", "patch"];
+    const _supportedMethods = ['post', 'put', 'patch'];
 
     // Joi validation options
     const _validationOptions = {
@@ -37,14 +38,14 @@ export const validation = (schema: Joi.ObjectSchema, options?: Joi.ValidationOpt
                 next();
 
             } catch (error) {
-                const message: string = error.details[0].message.replace(/['"]/g, "");
+                const message: string = error.details[0].message.replace(/['"]/g, '');
                 /* Format response */
                 const JoiError = {
                     status: false,
                     message,
                 };
 
-                res.status(400).json(JoiError);
+                res.status(HttpStatusCode.UNPROCESSABLE_ENTITY).json(JoiError);
             }
 
         } else {
