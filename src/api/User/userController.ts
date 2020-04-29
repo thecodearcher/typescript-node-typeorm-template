@@ -1,5 +1,5 @@
-import { UserService } from "./userService";
-import { BaseController } from "../baseController";
+import { UserService } from './userService';
+import { BaseController } from '../baseController';
 
 /**
  * User controller
@@ -12,6 +12,6 @@ export class UserController extends BaseController {
 
     public getAllUsers = async () => {
         const users = await this.userService.getAllUsers();
-        return this.sendResponse(users);
+        return this.sendResponse({ data: users });
     }
 }

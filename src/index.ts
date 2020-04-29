@@ -1,10 +1,10 @@
-import app from "./app";
-import { PORT } from "./config";
-import { logger } from "./utils/logger";
+import app from './app';
+import { PORT } from './config';
+import { logger } from './utils';
 
 const port = PORT || 3000;
-app.set("port", port);
-app.listen(app.get("port"), (err) => {
+app.set('port', port);
+app.listen(app.get('port'), (err) => {
     if (err) {
         return logger.error(err);
     }

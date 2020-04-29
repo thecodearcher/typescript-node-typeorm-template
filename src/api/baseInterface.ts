@@ -1,7 +1,8 @@
-import { SchemaMap } from "@hapi/joi";
+import { HttpStatusCode } from '../enums';
 
-export interface IBaseInterface extends SchemaMap {
-    id?: number;
-    createdAt?: Date;
-    updatedAt?: Date;
+export interface BaseApiResponse {
+    data?: any;
+    message?: string;
+    statusCode?: HttpStatusCode;
+    status?: boolean;
 }

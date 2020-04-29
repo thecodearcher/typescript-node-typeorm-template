@@ -1,6 +1,6 @@
-import appRoot from "app-root-path";
-import { config, createLogger, format, transports } from "winston";
-import { ENVIRONMENT } from "../config";
+import appRoot from 'app-root-path';
+import { config, createLogger, format, transports } from 'winston';
+import { ENVIRONMENT } from '../config';
 const { combine, timestamp, printf } = format;
 
 const logFormat = printf((info) => {
@@ -9,7 +9,7 @@ const logFormat = printf((info) => {
 
 const options = {
     error: {
-        level: "error",
+        level: 'error',
         filename: `${appRoot}/logs/error.log`,
         handleExceptions: true,
         format: combine(
@@ -21,7 +21,7 @@ const options = {
         colorize: false,
     },
     combined: {
-        level: "info",
+        level: 'info',
         filename: `${appRoot}/logs/app.log`,
         handleExceptions: true,
         format: combine(
@@ -33,7 +33,7 @@ const options = {
         colorize: false,
     },
     console: {
-        level: "debug",
+        level: 'debug',
         levels: config.npm.levels,
         handleExceptions: true,
         json: false,
@@ -51,7 +51,7 @@ export const logger = createLogger({
 });
 
 // If we're not in production then log to the `console` with the format:
-if (ENVIRONMENT !== "production") {
+if (ENVIRONMENT !== 'production') {
     logger.add(
         new transports.Console({
             format: combine(
