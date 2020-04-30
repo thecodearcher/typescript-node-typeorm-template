@@ -1,6 +1,6 @@
 import express from 'express';
 import { userRouter } from './api';
-import { BASE_PATH, DB_HOST, DB_USER, DB_PASSWORD, DB_NAME } from './config';
+import { BASE_PATH, DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, ENVIRONMENT } from './config';
 import { errorHandler, global } from './middlewares';
 import { logger } from './utils';
 import { createConnection } from 'typeorm';
@@ -30,6 +30,8 @@ class App {
 
     private async initializeDb() {
         try {
+            const entities = (ENVIRONMENT == 'testing') ? '**/api/**/*Model.ts' : '**/api/**/*Model.js';
+
             await createConnection({
                 type: 'mysql',
                 host: DB_HOST,
@@ -39,7 +41,7 @@ class App {
                 database: DB_NAME,
                 synchronize: false,
                 migrations: ['/src/db/migrations/*.ts'],
-                entities: ['**/api/**/*Model.js'],
+                entities: [entities],
             });
             logger.info('Database connection has been established successfully.');
         } catch (err) {

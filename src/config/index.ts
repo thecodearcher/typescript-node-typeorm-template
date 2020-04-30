@@ -1,5 +1,7 @@
 import * as dotenv from 'dotenv';
-dotenv.config();
+
+const path = process.env.NODE_ENV == 'testing' ? '.env.testing' : '.env';
+dotenv.config({ path });
 
 export const PORT = process.env.PORT;
 export const ENVIRONMENT = process.env.NODE_ENV;

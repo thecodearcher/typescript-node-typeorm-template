@@ -13,13 +13,15 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "lib": [
-            "ES6"
+            "ES6",
+            "DOM"
         ],
     },
     "include": [
         "src/**/*.ts",
     ],
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "src/**/*.spec.ts",
     ],
 }
