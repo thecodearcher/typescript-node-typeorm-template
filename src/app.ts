@@ -29,23 +29,24 @@ class App {
     }
 
     private async initializeDb() {
-        try {
-            const entities = (ENVIRONMENT == 'testing') ? '**/api/**/*Model.ts' : '**/api/**/*Model.js';
-
-            await createConnection({
-                type: 'mysql',
-                host: DB_HOST,
-                port: 3306,
-                username: DB_USER,
-                password: DB_PASSWORD,
-                database: DB_NAME,
-                synchronize: false,
-                migrations: ['/src/db/migrations/*.ts'],
-                entities: [entities],
-            });
-            logger.info('Database connection has been established successfully.');
-        } catch (err) {
-            throw new Error(('Unable to connect to the database:' + err));
+        if (ENVIRONMENT !== 'testing') {
+            try {
+                const entities = (ENVIRONMENT == 'testing') ? '**/api/**/*Model.ts' : '**/api/**/*Model.js';
+                await createConnection({
+                    type: 'mysql',
+                    host: DB_HOST,
+                    port: 3306,
+                    username: DB_USER,
+                    password: DB_PASSWORD,
+                    database: DB_NAME,
+                    synchronize: false,
+                    migrations: ['/src/db/migrations/*.ts'],
+                    entities: [entities],
+                });
+                logger.info('Database connection has been established successfully.');
+            } catch (err) {
+                throw new Error(('Unable to connect to the database:' + err));
+            }
         }
 
     }
