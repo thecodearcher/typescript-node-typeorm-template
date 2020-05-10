@@ -1,9 +1,13 @@
 import { UserService } from './../userService';
 import { UserFactory } from '../../../../tests/factories';
 
-const userService = new UserService();
+let userService: UserService;
 
 describe('UserService', () => {
+    beforeEach(() => {
+        userService = new UserService();
+    });
+
     it('should return all users', async () => {
         await UserFactory.make().save();
 
