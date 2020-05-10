@@ -1,6 +1,10 @@
 const { createConnection } = require("typeorm")
 
 let DbCon;
+beforeAll(() => {
+    require("./src/config")
+})
+
 beforeEach(async (done) => {
     try {
         DbCon = await createConnection({
@@ -11,6 +15,7 @@ beforeEach(async (done) => {
             password: process.env.DB_PASSWORD,
             database: process.env.DB_NAME,
             synchronize: true,
+            dropSchema: true,
             migrations: ['/src/db/migrations/*.ts'],
             entities: ['**/api/**/*Model.ts'],
         });

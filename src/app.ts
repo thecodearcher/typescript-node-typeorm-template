@@ -29,9 +29,8 @@ class App {
     }
 
     private async initializeDb() {
-        if (ENVIRONMENT !== 'testing') {
+        if (ENVIRONMENT !== 'test') {
             try {
-                const entities = (ENVIRONMENT == 'testing') ? '**/api/**/*Model.ts' : '**/api/**/*Model.js';
                 await createConnection({
                     type: 'mysql',
                     host: DB_HOST,
@@ -41,7 +40,7 @@ class App {
                     database: DB_NAME,
                     synchronize: false,
                     migrations: ['/src/db/migrations/*.ts'],
-                    entities: [entities],
+                    entities: ['**/api/**/*Model.js'],
                 });
                 logger.info('Database connection has been established successfully.');
             } catch (err) {
