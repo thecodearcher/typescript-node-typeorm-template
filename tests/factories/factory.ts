@@ -3,16 +3,12 @@ import faker from 'faker';
 
 export class Factory<T extends BaseEntity> {
 
-    public _faker: Faker.FakerStatic;
-    public _factories: {};
-    public _times: number;
+    private _factories: {};
     private _model: any;
     private _name: string;
 
     constructor(model: new () => T) {
-        this._faker = faker;
         this._factories = {};
-        this._times = null;
         this._model = model;
         this._name = this.model.name;
     }
@@ -39,7 +35,7 @@ export class Factory<T extends BaseEntity> {
         const callback = this._factories[this._name];
 
         return [...new Array(times)].map(() => {
-            return this._makeOnce(callback, overrides);
+            return this.build(callback, overrides);
         });
 
     }
@@ -51,11 +47,11 @@ export class Factory<T extends BaseEntity> {
 
         let callback = this._factories[this._name];
 
-        return this._makeOnce(callback, overrides);
+        return this.build(callback, overrides);
     }
 
-    private _makeOnce(callback: (faker?: Faker.FakerStatic) => Partial<T>, overrides): T {
-        const obj = callback(this._faker);
+    private build(callback: (faker?: Faker.FakerStatic) => Partial<T>, overrides): T {
+        const obj = callback(faker);
 
         const data = {
             ...obj,
